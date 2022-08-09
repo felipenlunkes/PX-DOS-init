@@ -4,27 +4,50 @@
 /*                                                                   */
 /*                                                                   */
 /*   #$$%%@!#$%                                                      */
-/*   !!@#!$!$!$         Sistema Operacional PX-DOS ®                 */
+/*   !!@#!$!$!$         Sistema Operacional PX-DOS                   */
 /*   !@@#   #$%                                                      */
 /*   #$$%   &*$                                                      */
 /*   $#%@   @#&                                                      */
 /*   #%$&*(@*@&                                                      */
-/*   @#$@$#@$%$     © 2013-2016 Felipe Miguel Nery Lunkes            */
+/*   @#$@$#@$%$       2013-2022 (c) Felipe Miguel Nery Lunkes        */
 /*   $%&*                Todos os direitos reservados                */
 /*   @#&*                                                            */
-/*   @&*%                                                            */
-/*   #&*@                                                            */
+/*   @&*%       Esse software se baseia em cÃ³digos disponÃ­veis       */
+/*   #&*@                     em domÃ­nio pÃºblico                     */
 /*                                                                   */
 /*                                                                   */
-/* O PX-DOS ® é marca registrada de Felipe Miguel Nery Lunkes no     */
-/* Brasil. © 2013-2016 Felipe Miguel Nery Lunkes. Todos os direitos  */
-/* reservados. A reprodução total ou parcial, de quaisquer trechos   */
-/* do código aqui presente é expressamente probida, sendo passível   */
-/* de punição legal severa.                                          */
-/*                                                                   */
-/* Copyright © 2013-2016 Felipe Miguel Nery Lunkes                   */
-/* Todos os direitos reservados.                                     */
-/*                                                                   */
+/*********************************************************************/
+/*
+
+Copyright (c) 2013-2022, Felipe Miguel Nery Lunkes
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
 /*********************************************************************/ 
 
 #include <stdio.h>
@@ -35,40 +58,40 @@
 
 //**********************************************************
 //
-// Assinaturas das funções presentes
+// Assinaturas das funï¿½ï¿½es presentes
 //
 //**********************************************************
 
-void Abrir_Arquivo_Configuracao(void); // Função de abertura do arquivo de configuração
+void Abrir_Arquivo_Configuracao(void); // Funï¿½ï¿½o de abertura do arquivo de configuraï¿½ï¿½o
                                        // DRIVERS.SIS
 
-void* processararquivo(void); // Função que irá processar o conteúdo do arquivo
+void* processararquivo(void); // Funï¿½ï¿½o que irï¿½ processar o conteï¿½do do arquivo
 
-void __execdriver(char *cmd, void *ambiente); // Função presente no módulo em Assembly,
-                                              // que será chamada por este módulo,
-											  // com seus parâmetros, para o carregamento
+void __execdriver(char *cmd, void *ambiente); // Funï¿½ï¿½o presente no mï¿½dulo em Assembly,
+                                              // que serï¿½ chamada por este mï¿½dulo,
+											  // com seus parï¿½metros, para o carregamento
 											  // do Driver pelo Kernel
 
 
 //**********************************************************
 //
-// Variáveis e Constantes utilizadas
+// Variï¿½veis e Constantes utilizadas
 //
 //**********************************************************
 
 tamanho_t tamanho; // Tamanho
 
-ARQUIVO *arquivo_de_drivers; // Aqui será aberto o arquivo de configurações
+ARQUIVO *arquivo_de_drivers; // Aqui serï¿½ aberto o arquivo de configuraï¿½ï¿½es
  
 int sistema;
  
 int x;  
  
-char driver[100] = ""; // Armazenará o nome do Driver à ser carregado
+char driver[100] = ""; // Armazenarï¿½ o nome do Driver ï¿½ ser carregado
 
-char msg[64] = ""; // Armazenará a mensagem a ser exibida na tela
+char msg[64] = ""; // Armazenarï¿½ a mensagem a ser exibida na tela
  
-char buf[200]; // Buffer temporário para operações com Strings
+char buf[200]; // Buffer temporï¿½rio para operaï¿½ï¿½es com Strings
 
 char resp;
  
@@ -101,24 +124,24 @@ static unsigned char cmdt[140];
  int main(void) // Ponto de Entrada
  {
 
- Abrir_Arquivo_Configuracao(); // Irá abrir o arquivo de configuração
+ Abrir_Arquivo_Configuracao(); // Irï¿½ abrir o arquivo de configuraï¿½ï¿½o
  
  }
  
 
 //**********************************************************
 //
-// Função de Abertura do Arquivo de Configuração
+// Funï¿½ï¿½o de Abertura do Arquivo de Configuraï¿½ï¿½o
 //
 //**********************************************************
  
-void Abrir_Arquivo_Configuracao(void) // Abre o arquivo de configuração para que as
-                                      // as informações possam ser acessadas
+void Abrir_Arquivo_Configuracao(void) // Abre o arquivo de configuraï¿½ï¿½o para que as
+                                      // as informaï¿½ï¿½es possam ser acessadas
 {
    
     arquivo_de_drivers = abrir("DRIVERS.SIS", "r"); // Abre o arquivo
 	
-	if (arquivo_de_drivers == NULL) // Se o arquivo não pôde ser aberto ou ele não foi
+	if (arquivo_de_drivers == NULL) // Se o arquivo nï¿½o pï¿½de ser aberto ou ele nï¿½o foi
 	                                // encontrado
 	{
 	
@@ -137,8 +160,8 @@ printf("\nArquivo de DRIVERS nao encontrado!\n");
     {   
 
 			
-        while (fgets(buf, sizeof buf, arquivo_de_drivers) != NULL) // Enquanto o conteúdo
-		                                                           // total não for
+        while (fgets(buf, sizeof buf, arquivo_de_drivers) != NULL) // Enquanto o conteï¿½do
+		                                                           // total nï¿½o for
                                                                    // analisado
         {
 		
@@ -146,7 +169,7 @@ printf("\nArquivo de DRIVERS nao encontrado!\n");
 			
         }
 		
-        fechar(arquivo_de_drivers); // Fecha o arquivo e libera a memória
+        fechar(arquivo_de_drivers); // Fecha o arquivo e libera a memï¿½ria
 		
     }
 	
@@ -156,11 +179,11 @@ printf("\nArquivo de DRIVERS nao encontrado!\n");
 
 //**********************************************************
 //
-// Função de comparação entre duas Strings
+// Funï¿½ï¿½o de comparaï¿½ï¿½o entre duas Strings
 //
 //**********************************************************
 
-static int compararString(char *um, char *dois) // Irá comparar Strings
+static int compararString(char *um, char *dois) // Irï¿½ comparar Strings
 {
     while (paramaiusculo(*um) == paramaiusculo(*dois))
     {
@@ -189,8 +212,8 @@ static int compararString(char *um, char *dois) // Irá comparar Strings
 
 //**********************************************************
 //
-// Função que processa e verifica os comandos presentes 
-// no Arquivo de Configuração
+// Funï¿½ï¿½o que processa e verifica os comandos presentes 
+// no Arquivo de Configuraï¿½ï¿½o
 //
 //**********************************************************
 
@@ -228,13 +251,13 @@ static int compararString(char *um, char *dois) // Irá comparar Strings
 
 //**********************************************************
 //
-// Verificação e validação dos comandos
+// Verificaï¿½ï¿½o e validaï¿½ï¿½o dos comandos
 //
-// Aviso! Ainda dentro da função processararquivo()
+// Aviso! Ainda dentro da funï¿½ï¿½o processararquivo()
 //
 //**********************************************************
 							
-	if (memcmp(buf, "DRIVER=", 7) == 0) // Comando para o carregamento de Drivers PX-DOS®
+	if (memcmp(buf, "DRIVER=", 7) == 0) // Comando para o carregamento de Drivers PX-DOSï¿½
                 {
                     char *p;
                     
@@ -253,7 +276,7 @@ static int compararString(char *um, char *dois) // Irá comparar Strings
 					
                 }
 			
-	else if (memcmp(buf, "MENSAGEM=", 9) == 0) // Comando para a exibição de mensagens
+	else if (memcmp(buf, "MENSAGEM=", 9) == 0) // Comando para a exibiï¿½ï¿½o de mensagens
 	{
 
 	                char *p;
@@ -275,11 +298,11 @@ static int compararString(char *um, char *dois) // Irá comparar Strings
 				
 //**********************************************************
 //
-// Fim da Função
+// Fim da Funï¿½ï¿½o
 //
 //**********************************************************
 	
-	} // Fim da Função
+	} // Fim da Funï¿½ï¿½o
 	
 
 	
